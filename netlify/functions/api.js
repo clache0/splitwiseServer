@@ -1,23 +1,31 @@
-const { MongoClient } = require("mongodb");
-require('dotenv').config();
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv"
+import "express-async-errors";
+import serverless from "serverless-http"
+import { itemRouter } from "./items.js"
 
-const mongoClient = new MongoClient(process.env.MONGODB_URI);
+dotenv.config();
 
-const clientPromise = mongoClient.connect();
+const app = express();
 
-const handler = async (event) => {
-  try {
-    const db = (await clientPromise).db(process.env.MONGODB_DATABASE);
-    const collection = db.collection(process.env.MONGODB_COLLECTION);
-    const results = await collection.find({}).limit(10).toArray();
-    return {
-      statusCode: 200,
-      body: JSON.stringify(results),
-    }
-  } catch (error) {
-    console.log(error);
-    return { statusCode: 500, body: error.toString() };
-  }
-}
+// set up CORS for client server on different domain, protocol, port
+app.use(cors());
 
-module.exports = { handler }
+// middleware to parse incoming requests with JSON payloads
+app.use(express.json());
+
+// Load routes
+app.use('/.netlify/functions/api/items', itemRouter);
+
+// app.use("/users", users);
+// app.use("/groups", groups);
+// app.use("/expenses", expenses);
+
+// Global error handling
+app.use((err, _req, res, next) => {
+  res.status(500).send("Uh oh! An unexpected error occured.")
+})
+
+export const handler = serverless(app);
+

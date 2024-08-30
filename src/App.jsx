@@ -3,7 +3,6 @@ import reactLogo from './assets/react.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -11,7 +10,7 @@ function App() {
     // Fetch data from the Netlify Function
     const fetchData = async () => {
       try {
-        const response = await fetch('.netlify/functions/api');
+        const response = await fetch('.netlify/functions/api/items');
         if (response.ok) {
           const result = await response.json();
           setData(result);
