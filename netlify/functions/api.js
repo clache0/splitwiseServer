@@ -6,6 +6,7 @@ import serverless from "serverless-http"
 import { itemRouter } from "./items.js"
 import groupRouter from "./routes/groups.js";
 import expenseRouter from "./routes/expenses.js";
+import userRouter from "./routes/users.js";
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.use(express.json());
 app.use('/.netlify/functions/api/items', itemRouter);
 app.use('/.netlify/functions/api/groups', groupRouter);
 app.use('/.netlify/functions/api/expenses', expenseRouter);
+app.use('/.netlify/functions/api/users', userRouter);
 
 // Global error handling
 app.use((err, _req, res, next) => {
