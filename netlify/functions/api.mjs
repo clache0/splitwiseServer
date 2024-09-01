@@ -3,10 +3,10 @@ import cors from "cors";
 import dotenv from "dotenv"
 import "express-async-errors";
 import serverless from "serverless-http"
-import { itemRouter } from "./items.js"
-import groupRouter from "./routes/groups.js";
-import expenseRouter from "./routes/expenses.js";
-import userRouter from "./routes/users.js";
+import { itemRouter } from "./items.mjs"
+import groupRouter from "./routes/groups.mjs";
+import expenseRouter from "./routes/expenses.mjs";
+import userRouter from "./routes/users.mjs";
 
 dotenv.config();
 
