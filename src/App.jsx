@@ -10,7 +10,8 @@ function App() {
     // Fetch data from the Netlify Function
     const fetchData = async () => {
       try {
-        const response = await fetch('.netlify/functions/api/items');
+        const response = await fetch('.netlify/functions/api/groups');
+
         if (response.ok) {
           const result = await response.json();
           setData(result);

@@ -4,6 +4,7 @@ import dotenv from "dotenv"
 import "express-async-errors";
 import serverless from "serverless-http"
 import { itemRouter } from "./items.js"
+import groupRouter from "./routes/groups.js";
 
 dotenv.config();
 
@@ -17,10 +18,7 @@ app.use(express.json());
 
 // Load routes
 app.use('/.netlify/functions/api/items', itemRouter);
-
-// app.use("/users", users);
-// app.use("/groups", groups);
-// app.use("/expenses", expenses);
+app.use('/.netlify/functions/api/groups', groupRouter);
 
 // Global error handling
 app.use((err, _req, res, next) => {
